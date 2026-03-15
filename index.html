@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DailyTaskBuddy — Beyond To-Do</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131a;
+    --surface2: #1c1c27;
+    --border: #2a2a3a;
+    --accent: #7c5cfc;
+    --accent2: #fc5c7d;
+    --accent3: #5cf8c8;
+    --text: #f0f0f8;
+    --muted: #7070a0;
+    --yellow: #ffd166;
+    --red: #fc5c5c;
+    --green: #5cf8c8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
+  h1,h2,h3,h4 { font-family: 'Syne', sans-serif; }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 32px;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; letter-spacing: -0.5px; }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 28px; align-items: center; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta { background: var(--accent); color: #fff; padding: 10px 22px; border-radius: 100px; font-size: 0.88rem; font-weight: 500; text-decoration: none; }
+  .hero {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 120px 24px 80px; position: relative; overflow: hidden;
+  }
+  .hero-glow { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(124,92,252,0.18) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(124,92,252,0.12); border: 1px solid rgba(124,92,252,0.3); padding: 6px 16px; border-radius: 100px; font-size: 0.78rem; color: var(--accent); margin-bottom: 28px; }
+  .hero-badge .dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .hero h1 { font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -2px; margin-bottom: 24px; }
+  .hero h1 .highlight { background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero p { font-size: clamp(1rem, 2.5vw, 1.25rem); color: var(--muted); max-width: 520px; margin: 0 auto 40px; line-height: 1.7; }
+  .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: linear-gradient(135deg, var(--accent), #5a3fcc); color: #fff; padding: 14px 32px; border-radius: 100px; text-decoration: none; font-weight: 500; font-size: 0.95rem; box-shadow: 0 8px 32px rgba(124,92,252,0.35); }
+  .btn-ghost { color: var(--text); padding: 14px 32px; border-radius: 100px; text-decoration: none; font-weight: 500; font-size: 0.95rem; border: 1px solid var(--border); }
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 40px; }
+  .feature-card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 28px; transition: border-color .2s, transform .2s; }
+  .feature-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .feature-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 18px; }
+  .icon-purple { background: rgba(124,92,252,0.15); }
+  .icon-pink { background: rgba(252,92,125,0.15); }
+  .icon-teal { background: rgba(92,248,200,0.15); }
+  .icon-yellow { background: rgba(255,209,102,0.15); }
+  .feature-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
+  .feature-card p { font-size: 0.87rem; color: var(--muted); line-height: 1.7; }
+  section { padding: 100px 24px; max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; font-weight: 600; }
+  .section-title { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 16px; line-height: 1.15; }
+  .section-sub { color: var(--muted); font-size: 1.05rem; max-width: 500px; line-height: 1.7; margin-bottom: 40px; }
+
+  /* AI SECTION */
+  .ai-box { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 32px; max-width: 600px; margin: 40px auto 0; }
+  .ai-input-row { display: flex; gap: 10px; margin-bottom: 20px; }
+  .ai-input { flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; outline: none; }
+  .ai-input:focus { border-color: var(--accent); }
+  .ai-btn { background: var(--accent); color: #fff; border: none; padding: 12px 20px; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; font-size: 0.9rem; white-space: nowrap; }
+  .ai-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .ai-results { display: flex; flex-direction: column; gap: 8px; }
+  .ai-task { display: flex; align-items: center; gap: 10px; background: rgba(92,248,200,0.08); border: 1px solid rgba(92,248,200,0.2); padding: 10px 14px; border-radius: 10px; font-size: 0.85rem; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+  .ai-task::before { content: '✓'; color: var(--green); font-weight: 700; }
+  .ai-loading { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 20px; }
+  .ai-error { color: var(--red); font-size: 0.82rem; text-align: center; padding: 10px; }
+
+  /* POMODORO */
+  .pomo-circle { width: 180px; height: 180px; border-radius: 50%; border: 4px solid var(--border); margin: 0 auto 28px; display: flex; align-items: center; justify-content: center; flex-direction: column; position: relative; background: var(--surface); }
+  .pomo-circle::before { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 4px solid transparent; border-top-color: var(--accent); border-right-color: var(--accent); transform: rotate(-30deg); }
+  .pomo-big { font-family: 'Syne', sans-serif; font-size: 2.6rem; font-weight: 800; }
+  .pomo-sub-label { font-size: 0.72rem; color: var(--muted); }
+  .pomo-btns { display: flex; gap: 12px; justify-content: center; margin-top: 20px; }
+  .pomo-action { padding: 10px 24px; border-radius: 100px; font-size: 0.88rem; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500; }
+  .pomo-start { background: var(--accent); color: #fff; border: none; }
+  .pomo-reset { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+
+  /* PRIORITY */
+  .priority-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 40px; }
+  .priority-card { border-radius: 14px; padding: 20px; border: 1px solid; }
+  .priority-card.high { background: rgba(252,92,92,0.06); border-color: rgba(252,92,92,0.25); }
+  .priority-card.med { background: rgba(255,209,102,0.06); border-color: rgba(255,209,102,0.25); }
+  .priority-card.low { background: rgba(92,248,200,0.06); border-color: rgba(92,248,200,0.25); }
+  .priority-level { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 12px; }
+  .priority-card.high .priority-level { color: var(--red); }
+  .priority-card.med .priority-level { color: var(--yellow); }
+  .priority-card.low .priority-level { color: var(--green); }
+  .priority-task { font-size: 0.82rem; color: var(--muted); margin-bottom: 8px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .priority-task:last-child { border: none; margin: 0; }
+
+  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; margin-top: 60px; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px 24px; text-align: center; }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 2.6rem; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat-label { font-size: 0.82rem; color: var(--muted); margin-top: 4px; }
+
+  .cta-section { text-align: center; padding: 120px 24px; border-top: 1px solid var(--border); }
+  .cta-section h2 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: -1.5px; margin-bottom: 20px; }
+  .cta-section p { color: var(--muted); margin-bottom: 40px; }
+  .store-btn { display: inline-flex; align-items: center; gap: 12px; background: var(--surface); border: 1px solid var(--border); padding: 12px 24px; border-radius: 14px; text-decoration: none; color: var(--text); font-size: 0.88rem; margin: 8px; }
+  .store-txt small { display: block; color: var(--muted); font-size: 0.7rem; }
+  .store-txt strong { font-family: 'Syne', sans-serif; }
+  footer { border-top: 1px solid var(--border); padding: 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  footer p { font-size: 0.82rem; color: var(--muted); }
+  @media(max-width:768px) { nav { padding: 14px 20px; } .nav-links { display: none; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">DailyTask<span>Buddy</span></div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#ai">AI</a>
+    <a href="#timer">Timer</a>
+    <a href="#download" class="nav-cta">Get Started Free</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div>
+    <div class="hero-badge"><span class="dot"></span> Now with AI Task Intelligence</div>
+    <h1>Your Tasks.<br><span class="highlight">Supercharged.</span></h1>
+    <p>DailyTaskBuddy goes beyond ordinary to-do apps. AI suggestions, focus timers, smart priorities — everything you need to actually get things done.</p>
+    <div class="hero-btns">
+      <a href="#download" class="btn-primary">Download Free →</a>
+      <a href="#features" class="btn-ghost">See Features</a>
+    </div>
+  </div>
+</div>
+
+<section id="features">
+  <div class="section-label">What Makes Us Different</div>
+  <h2 class="section-title">Not just a list.<br>A productivity system.</h2>
+  <p class="section-sub">Everything you need: smart task management, AI guidance, and deep focus tools — all in one place.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon icon-purple">🤖</div>
+      <h3>AI Task Suggestions</h3>
+      <p>Tell DailyTaskBuddy your goal and AI breaks it into smart, actionable steps automatically.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon icon-pink">🔥</div>
+      <h3>Priority Levels & Deadlines</h3>
+      <p>Tag tasks as High, Medium, or Low priority. Get smart alerts before deadlines hit.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon icon-teal">🍅</div>
+      <h3>Built-in Pomodoro Timer</h3>
+      <p>Work in focused 25-minute sprints with automatic breaks. Proven to boost productivity.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon icon-yellow">📊</div>
+      <h3>Progress Analytics</h3>
+      <p>See how many tasks you complete daily and weekly. Watch your streaks grow.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon icon-purple">🔔</div>
+      <h3>Smart Reminders</h3>
+      <p>Intelligent notifications that remind you at the right time, not just the set time.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon icon-pink">🌙</div>
+      <h3>Offline Mode</h3>
+      <p>No internet? No problem. Works fully offline and syncs when you reconnect.</p>
+    </div>
+  </div>
+</section>
+
+<section id="ai" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);max-width:100%;padding:80px 24px;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-label">AI Intelligence</div>
+    <h2 class="section-title">Tell it your goal. AI does the rest.</h2>
+    <p class="section-sub">Try it live — type any goal below and watch AI generate your task list instantly!</p>
+    <div class="ai-box">
+      <div class="ai-input-row">
+        <input class="ai-input" id="goalInput" type="text" placeholder="e.g. Launch my YouTube channel this month...">
+        <button class="ai-btn" id="aiBtn" onclick="getSuggestions()">✨ Suggest</button>
+      </div>
+      <div class="ai-results" id="aiResults"></div>
+    </div>
+  </div>
+</section>
+
+<div id="timer" style="text-align:center;padding:80px 24px;border-bottom:1px solid var(--border);">
+  <div class="section-label" style="margin-bottom:10px">Pomodoro Timer</div>
+  <h2 class="section-title" style="margin-bottom:12px">Focus. Work. Rest. Repeat.</h2>
+  <p style="color:var(--muted);margin-bottom:40px;font-size:0.95rem">Try the built-in focus timer — live demo!</p>
+  <div class="pomo-circle">
+    <div class="pomo-big" id="main-timer">25:00</div>
+    <div class="pomo-sub-label" id="timer-phase">Focus Session</div>
+  </div>
+  <div class="pomo-btns">
+    <button class="pomo-action pomo-start" id="main-timer-btn" onclick="toggleMainTimer()">▶ Start Focus</button>
+    <button class="pomo-action pomo-reset" onclick="resetMainTimer()">↺ Reset</button>
+  </div>
+  <div class="stats-row" style="max-width:700px;margin:60px auto 0;">
+    <div class="stat-card"><div class="stat-num">2.4M+</div><div class="stat-label">Tasks Completed</div></div>
+    <div class="stat-card"><div class="stat-num">180K+</div><div class="stat-label">Active Users</div></div>
+    <div class="stat-card"><div class="stat-num">4.8★</div><div class="stat-label">App Store Rating</div></div>
+  </div>
+</div>
+
+<section>
+  <div class="section-label">Priority System</div>
+  <h2 class="section-title">Always know what matters most.</h2>
+  <p class="section-sub">Color-coded priority levels with smart deadline tracking.</p>
+  <div class="priority-grid">
+    <div class="priority-card high">
+      <div class="priority-level">🔴 High Priority</div>
+      <div class="priority-task">Submit project report · Due today</div>
+      <div class="priority-task">Call the doctor · Due today</div>
+      <div class="priority-task">Fix critical bug · Overdue!</div>
+    </div>
+    <div class="priority-card med">
+      <div class="priority-level">🟡 Medium Priority</div>
+      <div class="priority-task">Team meeting prep · Tomorrow</div>
+      <div class="priority-task">Update portfolio · This week</div>
+      <div class="priority-task">Read 20 pages · This week</div>
+    </div>
+    <div class="priority-card low">
+      <div class="priority-level">🟢 Low Priority</div>
+      <div class="priority-task">Clean workspace · Whenever</div>
+      <div class="priority-task">Backup phone photos · This month</div>
+      <div class="priority-task">Learn new recipe · This month</div>
+    </div>
+  </div>
+</section>
+
+<div id="download" class="cta-section">
+  <div style="max-width:600px;margin:0 auto;">
+    <h2>Start achieving more,<br>starting today.</h2>
+    <p>Free to download. No account needed. Available on Android — iOS coming soon.</p>
+    <div>
+      <a href="#" class="store-btn"><span style="font-size:1.6rem">📱</span><div class="store-txt"><small>Get it on</small><strong>Google Play</strong></div></a>
+      <a href="#" class="store-btn"><span style="font-size:1.6rem">🍎</span><div class="store-txt"><small>Coming Soon to</small><strong>App Store</strong></div></a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="logo">DailyTask<span>Buddy</span></div>
+  <p>© 2025 DailyTaskBuddy. Built to help you do more.</p>
+  <div style="display:flex;gap:20px;">
+    <a href="#" style="color:var(--muted);font-size:0.82rem;text-decoration:none;">Privacy</a>
+    <a href="#" style="color:var(--muted);font-size:0.82rem;text-decoration:none;">Terms</a>
+  </div>
+</footer>
+
+<script>
+async function getSuggestions() {
+  const goal = document.getElementById('goalInput').value.trim();
+  const resultsDiv = document.getElementById('aiResults');
+  const btn = document.getElementById('aiBtn');
+  if (!goal) return;
+  btn.disabled = true;
+  btn.textContent = 'Thinking...';
+  resultsDiv.innerHTML = '<div class="ai-loading">🤖 AI is generating your tasks...</div>';
+  try {
+    const res = await fetch('/api/suggest', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ goal })
+    });
+    const data = await res.json();
+    if (data.tasks) {
+      resultsDiv.innerHTML = data.tasks.map(t => `<div class="ai-task">${t}</div>`).join('');
+    } else {
+      resultsDiv.innerHTML = '<div class="ai-error">Something went wrong. Try again!</div>';
+    }
+  } catch(e) {
+    resultsDiv.innerHTML = '<div class="ai-error">Could not connect to AI. Try again!</div>';
+  }
+  btn.disabled = false;
+  btn.textContent = '✨ Suggest';
+}
+
+document.getElementById('goalInput').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') getSuggestions();
+});
+
+let mainInterval = null, mainSeconds = 1500, mainRunning = false, isBreak = false;
+function toggleMainTimer() {
+  const btn = document.getElementById('main-timer-btn');
+  if (mainRunning) {
+    clearInterval(mainInterval); mainRunning = false; btn.textContent = '▶ Continue';
+  } else {
+    mainRunning = true; btn.textContent = '⏸ Pause';
+    mainInterval = setInterval(() => {
+      if (mainSeconds <= 0) {
+        isBreak = !isBreak; mainSeconds = isBreak ? 300 : 1500;
+        document.getElementById('timer-phase').textContent = isBreak ? 'Short Break ☕' : 'Focus Session';
+      }
+      mainSeconds--;
+      const m = String(Math.floor(mainSeconds/60)).padStart(2,'0');
+      const s = String(mainSeconds%60).padStart(2,'0');
+      document.getElementById('main-timer').textContent = m+':'+s;
+    }, 1000);
+  }
+}
+function resetMainTimer() {
+  clearInterval(mainInterval); mainRunning = false; isBreak = false; mainSeconds = 1500;
+  document.getElementById('main-timer').textContent = '25:00';
+  document.getElementById('timer-phase').textContent = 'Focus Session';
+  document.getElementById('main-timer-btn').textContent = '▶ Start Focus';
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({behavior:'smooth'}); }
+  });
+});
+</script>
+</body>
+  </html>
