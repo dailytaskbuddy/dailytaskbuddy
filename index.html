@@ -272,7 +272,7 @@ async function getSuggestions() {
   btn.textContent = 'Thinking...';
   resultsDiv.innerHTML = '<div class="ai-loading">🤖 AI is generating your tasks...</div>';
   try {
-    const res = await fetch('/api/suggest', {
+const res = await fetch('https://dailytaskbuddy.vercel.app/api/suggest', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ goal })
