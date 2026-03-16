@@ -1,15 +1,10 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api/suggest.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "index.html",
-      "use": "@vercel/static"
+  "functions": {
+    "api/suggest.js": {
+      "runtime": "edge"
     }
-  ],
+  },
   "routes": [
     {
       "src": "/api/suggest",
