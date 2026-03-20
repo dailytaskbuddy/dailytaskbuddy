@@ -269,6 +269,7 @@
 
 <script>
 async function getSuggestions() {
+async function getSuggestions() {
   const goal = document.getElementById('goalInput').value.trim();
   const resultsDiv = document.getElementById('aiResults');
   const btn = document.getElementById('aiBtn');
@@ -277,19 +278,22 @@ async function getSuggestions() {
   btn.textContent = 'Thinking...';
   resultsDiv.innerHTML = '<div class="ai-loading">🤖 AI is generating your tasks...</div>';
   try {
-const res = await fetch('https://dailytaskbuddy.vercel.app/api/suggest', {
+    const res = await fetch('/api/suggest', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ goal })
+      body: JSON.stringify({ goal: goal })
     });
-    const data = await res.json();
-    if (data.tasks) {
+    const text = await res.text();
+    const data = JSON.parse(text);
+    if (data.tasks && data.tasks.length > 0) {
       resultsDiv.innerHTML = data.tasks.map(t => `<div class="ai-task">${t}</div>`).join('');
+    } else if (data.error) {
+      resultsDiv.innerHTML = `<div class="ai-error">Error: ${data.error}</div>`;
     } else {
-      resultsDiv.innerHTML = '<div class="ai-error">Something went wrong. Try again!</div>';
+      resultsDiv.innerHTML = '<div class="ai-error">No tasks returned. Try again!</div>';
     }
   } catch(e) {
-    resultsDiv.innerHTML = '<div class="ai-error">Could not connect to AI. Try again!</div>';
+    resultsDiv.innerHTML = `<div class="ai-error">Error: ${e.message}</div>`;
   }
   btn.disabled = false;
   btn.textContent = '✨ Suggest';
