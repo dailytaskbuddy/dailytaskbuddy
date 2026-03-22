@@ -1,6 +1,8 @@
 {
   "version": 2,
   "rewrites": [
-    { "source": "/api/suggest", "destination": "/api/suggest.js" }
+    { "source": "/api/suggest", "destination": "/api/suggest.js" },
+    { "source": "/app", "destination": "/app.html" },
+    { "source": "/", "destination": "/index.html" }
   ]
 }
