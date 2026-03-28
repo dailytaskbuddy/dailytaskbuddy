@@ -1,7 +1,7 @@
 {
   "name": "DailyTaskBuddy",
   "short_name": "DailyTaskBuddy",
-  "description": "Smart to-do app with streak tracker and priority levels",
+  "description": "Smart to-do app with streaks and achievements",
   "start_url": "/app",
   "scope": "/",
   "display": "standalone",
@@ -10,13 +10,13 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "https://via.placeholder.com/192x192/6c63ff/ffffff?text=DTB",
+      "src": "https://raw.githubusercontent.com/dailytaskbuddy/dailytaskbuddy/main/1774181045900.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "https://via.placeholder.com/512x512/6c63ff/ffffff?text=DTB",
+      "src": "https://raw.githubusercontent.com/dailytaskbuddy/dailytaskbuddy/main/1774181045900.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
