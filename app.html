@@ -585,7 +585,7 @@
     else if (currentFilter === 'high') filtered = tasks.filter(t => t.priority === 'high' && !t.done);
     else if (currentFilter === 'med') filtered = tasks.filter(t => t.priority === 'med' && !t.done);
     else if (currentFilter === 'low') filtered = tasks.filter(t => t.priority === 'low' && !t.done);
-    else filtered = tasks;
+    else filtered = tasks.filter(t => !t.done);
 
     document.getElementById('taskCount').textContent = filtered.length;
     document.getElementById('totalTasks').textContent = tasks.length;
