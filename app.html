@@ -574,9 +574,7 @@
     else filtered = tasks.filter(t => !t.done);
 
     document.getElementById('taskCount').textContent = filtered.length;
-    document.getElementById('totalTasks').textContent = tasks.length;
-    document.getElementById('doneTasks').textContent = tasks.filter(t => t.done).length;
-    document.getElementById('streakDays').textContent = stats.streak;
+    
     document.getElementById('streakNum').textContent = stats.streak;
 
     if (filtered.length === 0) {
