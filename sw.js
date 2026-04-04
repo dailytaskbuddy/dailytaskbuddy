@@ -1,8 +1,11 @@
-const CACHE_NAME = 'dailytaskbuddy-v1';
+const CACHE_NAME = 'dailytaskbuddy-v2';
 const urlsToCache = [
   '/',
   '/index.html',
-  '/manifest.json'
+  '/app',
+  '/app.html',
+  '/manifest.json',
+  '/sw.js'
 ];
 
 self.addEventListener('install', event => {
@@ -10,14 +13,21 @@ self.addEventListener('install', event => {
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(urlsToCache))
   );
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+    )
+  );
+  self.clients.claim();
 });
 
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
-      .then(response => {
-        if (response) return response;
-        return fetch(event.request);
-      })
+      .then(response => response || fetch(event.request))
   );
 });
