@@ -328,7 +328,7 @@
     </div>
 
     <!-- TASK LIST -->
-    <div class="section-title">
+    <div class="section-title" id="sectionTitle">
       Today's Tasks <span class="task-count" id="taskCount">0</span>
     </div>
     <div class="task-list" id="taskList">
@@ -573,7 +573,7 @@
     else if (currentFilter === 'low') filtered = tasks.filter(t => t.priority === 'low' && !t.done);
     else filtered = tasks.filter(t => !t.done);
 
-    document.getElementById('taskCount').textContent = filtered.length;
+    document.getElementById('sectionTitle').innerHTML = (currentFilter === 'done' ? 'Completed Tasks' : "Today's Tasks") + ' <span class="task-count" id="taskCount">' + filtered.length + '</span>';
     
     document.getElementById('streakNum').textContent = stats.streak;
 
