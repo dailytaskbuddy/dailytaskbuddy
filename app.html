@@ -271,23 +271,6 @@
       </div>
     </div>
     <div class="settings-section">
-      <div class="settings-label">Notifications</div>
-      <div class="settings-item">
-        <div class="settings-item-left">
-          <div class="settings-icon">🔔</div>
-          <div class="settings-text"><strong>Daily Reminder</strong><small>Get reminded to check tasks</small></div>
-        </div>
-        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
-      </div>
-      <div class="settings-item">
-        <div class="settings-item-left">
-          <div class="settings-icon">🔥</div>
-          <div class="settings-text"><strong>Streak Alert</strong><small>Don't break your streak!</small></div>
-        </div>
-        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
-      </div>
-    </div>
-    <div class="settings-section">
       <div class="settings-label">Data</div>
       <div class="settings-item" onclick="clearAllTasks()" style="cursor:pointer">
         <div class="settings-item-left">
@@ -440,7 +423,6 @@
     document.getElementById('dtbCount').textContent      = count + ' selected';
     document.getElementById('btnRecover').disabled       = count === 0;
     document.getElementById('btnClear').disabled         = count === 0;
-    // update each checkbox + highlight without full re-render
     document.querySelectorAll('.done-cb').forEach(function(cb){
       var id      = parseInt(cb.dataset.id);
       var checked = selectedIds.indexOf(id) !== -1;
@@ -477,7 +459,7 @@
   function openEdit(id) {
     var t = tasks.find(function(t){ return t.id === id; });
     if (!t) return;
-    editPriority = t.priority;   // store in module-level var
+    editPriority = t.priority;
 
     var overlay = document.createElement('div');
     overlay.className = 'edit-overlay';
@@ -628,7 +610,7 @@
       { icon:'⚡', name:'10 Done',       unlocked: stats.totalDone >= 10 },
       { icon:'🏆', name:'7 Day Streak',  unlocked: stats.streak >= 7 },
       { icon:'💪', name:'25 Done',       unlocked: stats.totalDone >= 25 },
-      { icon:'🎯', name:'All High',      unlocked: stats.highDone >= 5 },
+      { icon:'🎯', name:'50 Done',        unlocked: stats.totalDone >= 50 },
       { icon:'🌟', name:'30 Day Streak', unlocked: stats.streak >= 30 },
       { icon:'👑', name:'100 Done',      unlocked: stats.totalDone >= 100 },
     ];
