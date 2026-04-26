@@ -182,7 +182,16 @@
 
   <!-- HOME -->
   <div class="screen active" id="screen-home">
-    <div class="ad-banner">📢 Advertisement Banner (AdMob goes here)</div>
+    <div class="ad-banner" style="padding:0;overflow:hidden;min-height:50px;">
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-app-pub-2029523248359817" crossorigin="anonymous"></script>
+      <ins class="adsbygoogle"
+           style="display:block;width:100%;height:50px;"
+           data-ad-client="ca-app-pub-2029523248359817"
+           data-ad-slot="3370318269"
+           data-ad-format="banner"
+           data-full-width-responsive="false"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
 
     <div class="add-task-box">
       <h3>➕ Add New Task</h3>
@@ -536,9 +545,9 @@
 
     if (filtered.length === 0) {
       if (currentFilter === 'done') {
-        list.innerHTML = '<div class="empty-state"><div class="empty-icon">🎉</div><div class="empty-text">No completed tasks yet!</div></div>';
+        list.innerHTML = '<div class="empty-state"><div class="empty-text">No completed tasks yet!</div></div>';
       } else {
-        list.innerHTML = '<div class="empty-state"><div class="empty-icon">📝</div><div class="empty-text">No tasks here! Add one above.</div></div>';
+        list.innerHTML = '<div class="empty-state"><div class="empty-text">No tasks here! Add one above.</div></div>';
       }
       return;
     }
