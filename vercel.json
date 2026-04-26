@@ -14,6 +14,7 @@
   "rewrites": [
     { "source": "/api/suggest", "destination": "/api/suggest.js" },
     { "source": "/app", "destination": "/app.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
     { "source": "/", "destination": "/index.html" }
   ]
 }
