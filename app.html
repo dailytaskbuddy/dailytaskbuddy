@@ -657,22 +657,24 @@
   }
 
   // ── CONFIRM ────────────────────────────────────────────────────────────────
-  function showConfirm(msg, onYes) {
+function showConfirm(msg, onYes) {
     var ov = document.createElement('div');
     ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:400;display:flex;align-items:center;justify-content:center;padding:24px;';
     ov.innerHTML =
       '<div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:24px;max-width:300px;width:100%;text-align:center;">' +
         '<div style="font-size:1.5rem;margin-bottom:12px;">⚠️</div>' +
         '<div style="font-size:0.95rem;margin-bottom:20px;line-height:1.5;">' + msg + '</div>' +
-        '<div style="display:flex;gap:10px;">' +
-          '<button onclick="this.closest(\'div[style]\').remove()" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-family:Outfit,sans-serif;font-size:0.9rem;cursor:pointer;">Cancel</button>' +
+        '<div style="display:flex;gap:10px;margin-top:8px;">' +
+          '<button id="confirmNo" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-family:Outfit,sans-serif;font-size:0.9rem;cursor:pointer;">Cancel</button>' +
           '<button id="confirmYes" style="flex:1;padding:12px;border-radius:12px;border:none;background:#ff6b6b;color:#fff;font-family:Outfit,sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;">Yes, Delete</button>' +
         '</div>' +
       '</div>';
     document.body.appendChild(ov);
-    ov.querySelector('#confirmYes').onclick = function(){ ov.remove(); onYes(); };
+    setTimeout(function(){
+      ov.querySelector('#confirmYes').onclick = function(){ ov.remove(); onYes(); };
+      ov.querySelector('#confirmNo').onclick = function(){ ov.remove(); };
+    }, 100);
   }
-
   // ── TOAST ──────────────────────────────────────────────────────────────────
   function showToast(msg) {
     var t = document.getElementById('toast');
