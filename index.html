@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DailyTaskBuddy — Beyond To-Do</title>
-  <link rel="manifest" href="/manifest.json">
+<link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#7c5cfc">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -71,30 +71,6 @@
   .section-title { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 16px; line-height: 1.15; }
   .section-sub { color: var(--muted); font-size: 1.05rem; max-width: 500px; line-height: 1.7; margin-bottom: 40px; }
 
-  /* AI SECTION */
-  .ai-box { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 32px; max-width: 600px; margin: 40px auto 0; }
-  .ai-input-row { display: flex; gap: 10px; margin-bottom: 20px; }
-  .ai-input { flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; outline: none; }
-  .ai-input:focus { border-color: var(--accent); }
-  .ai-btn { background: var(--accent); color: #fff; border: none; padding: 12px 20px; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; font-size: 0.9rem; white-space: nowrap; }
-  .ai-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-  .ai-results { display: flex; flex-direction: column; gap: 8px; }
-  .ai-task { display: flex; align-items: center; gap: 10px; background: rgba(92,248,200,0.08); border: 1px solid rgba(92,248,200,0.2); padding: 10px 14px; border-radius: 10px; font-size: 0.85rem; animation: fadeIn 0.3s ease; }
-  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
-  .ai-task::before { content: '✓'; color: var(--green); font-weight: 700; }
-  .ai-loading { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 20px; }
-  .ai-error { color: var(--red); font-size: 0.82rem; text-align: center; padding: 10px; }
-
-  /* POMODORO */
-  .pomo-circle { width: 180px; height: 180px; border-radius: 50%; border: 4px solid var(--border); margin: 0 auto 28px; display: flex; align-items: center; justify-content: center; flex-direction: column; position: relative; background: var(--surface); }
-  .pomo-circle::before { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 4px solid transparent; border-top-color: var(--accent); border-right-color: var(--accent); transform: rotate(-30deg); }
-  .pomo-big { font-family: 'Syne', sans-serif; font-size: 2.6rem; font-weight: 800; }
-  .pomo-sub-label { font-size: 0.72rem; color: var(--muted); }
-  .pomo-btns { display: flex; gap: 12px; justify-content: center; margin-top: 20px; }
-  .pomo-action { padding: 10px 24px; border-radius: 100px; font-size: 0.88rem; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500; }
-  .pomo-start { background: var(--accent); color: #fff; border: none; }
-  .pomo-reset { background: transparent; color: var(--muted); border: 1px solid var(--border); }
-
   /* PRIORITY */
   .priority-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 40px; }
   .priority-card { border-radius: 14px; padding: 20px; border: 1px solid; }
@@ -130,8 +106,7 @@
   <div class="logo">DailyTask<span>Buddy</span></div>
   <div class="nav-links">
     <a href="#features">Features</a>
-    <a href="#ai">AI</a>
-    <a href="#timer">Timer</a>
+    <a href="#priority">Priority</a>
     <a href="#download" class="nav-cta">Get Started Free</a>
   </div>
 </nav>
@@ -139,9 +114,9 @@
 <div class="hero">
   <div class="hero-glow"></div>
   <div>
-    <div class="hero-badge"><span class="dot"></span> Now with AI Task Intelligence</div>
+    <div class="hero-badge"><span class="dot"></span> Smart Task Management</div>
     <h1>Your Tasks.<br><span class="highlight">Supercharged.</span></h1>
-    <p>DailyTaskBuddy goes beyond ordinary to-do apps. AI suggestions, focus timers, smart priorities — everything you need to actually get things done.</p>
+    <p>DailyTaskBuddy goes beyond ordinary to-do apps. Smart priorities, streak tracking, and progress analytics — everything you need to actually get things done.</p>
     <div class="hero-btns">
       <a href="#download" class="btn-primary">Download Free →</a>
       <a href="#features" class="btn-ghost">See Features</a>
@@ -152,79 +127,45 @@
 <section id="features">
   <div class="section-label">What Makes Us Different</div>
   <h2 class="section-title">Not just a list.<br>A productivity system.</h2>
-  <p class="section-sub">Everything you need: smart task management, AI guidance, and deep focus tools — all in one place.</p>
+  <p class="section-sub">Everything you need: smart task management, priority levels, streak tracking, and progress analytics — all in one place.</p>
   <div class="features-grid">
     <div class="feature-card">
-      <div class="feature-icon icon-purple">🤖</div>
-      <h3>AI Task Suggestions</h3>
-      <p>Tell DailyTaskBuddy your goal and AI breaks it into smart, actionable steps automatically.</p>
-    </div>
-    <div class="feature-card">
       <div class="feature-icon icon-pink">🔥</div>
-      <h3>Priority Levels & Deadlines</h3>
-      <p>Tag tasks as High, Medium, or Low priority. Get smart alerts before deadlines hit.</p>
+      <h3>Priority Levels</h3>
+      <p>Tag tasks as High, Medium, or Low priority. Always know what needs your attention first.</p>
     </div>
     <div class="feature-card">
-      <div class="feature-icon icon-teal">🍅</div>
-      <h3>Built-in Pomodoro Timer</h3>
-      <p>Work in focused 25-minute sprints with automatic breaks. Proven to boost productivity.</p>
+      <div class="feature-icon icon-purple">⚡</div>
+      <h3>Daily Streak Tracker</h3>
+      <p>Build powerful habits by tracking your daily completion streak. Stay consistent and motivated.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon icon-yellow">📊</div>
       <h3>Progress Analytics</h3>
-      <p>See how many tasks you complete daily and weekly. Watch your streaks grow.</p>
+      <p>See how many tasks you complete daily and weekly. Watch your productivity grow over time.</p>
     </div>
     <div class="feature-card">
-      <div class="feature-icon icon-purple">🔔</div>
-      <h3>Smart Reminders</h3>
-      <p>Intelligent notifications that remind you at the right time, not just the set time.</p>
+      <div class="feature-icon icon-teal">🏆</div>
+      <h3>Achievements</h3>
+      <p>Unlock badges as you hit milestones. Completing tasks has never felt more rewarding.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon icon-purple">✅</div>
+      <h3>Done & Recover</h3>
+      <p>View completed tasks, recover them if needed, or clear them permanently with one tap.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon icon-pink">🌙</div>
       <h3>Offline Mode</h3>
-      <p>No internet? No problem. Works fully offline and syncs when you reconnect.</p>
+      <p>No internet? No problem. Works fully offline — your tasks are always available.</p>
     </div>
   </div>
 </section>
 
-<section id="ai" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);max-width:100%;padding:80px 24px;">
-  <div style="max-width:1100px;margin:0 auto;">
-    <div class="section-label">AI Intelligence</div>
-    <h2 class="section-title">Tell it your goal. AI does the rest.</h2>
-    <p class="section-sub">Try it live — type any goal below and watch AI generate your task list instantly!</p>
-    <div class="ai-box">
-      <div class="ai-input-row">
-        <input class="ai-input" id="goalInput" type="text" placeholder="e.g. Launch my YouTube channel this month...">
-        <button class="ai-btn" id="aiBtn" onclick="getSuggestions()">✨ Suggest</button>
-      </div>
-      <div class="ai-results" id="aiResults"></div>
-    </div>
-  </div>
-</section>
-
-<div id="timer" style="text-align:center;padding:80px 24px;border-bottom:1px solid var(--border);">
-  <div class="section-label" style="margin-bottom:10px">Pomodoro Timer</div>
-  <h2 class="section-title" style="margin-bottom:12px">Focus. Work. Rest. Repeat.</h2>
-  <p style="color:var(--muted);margin-bottom:40px;font-size:0.95rem">Try the built-in focus timer — live demo!</p>
-  <div class="pomo-circle">
-    <div class="pomo-big" id="main-timer">25:00</div>
-    <div class="pomo-sub-label" id="timer-phase">Focus Session</div>
-  </div>
-  <div class="pomo-btns">
-    <button class="pomo-action pomo-start" id="main-timer-btn" onclick="toggleMainTimer()">▶ Start Focus</button>
-    <button class="pomo-action pomo-reset" onclick="resetMainTimer()">↺ Reset</button>
-  </div>
-  <div class="stats-row" style="max-width:700px;margin:60px auto 0;">
-    <div class="stat-card"><div class="stat-num">2.4M+</div><div class="stat-label">Tasks Completed</div></div>
-    <div class="stat-card"><div class="stat-num">180K+</div><div class="stat-label">Active Users</div></div>
-    <div class="stat-card"><div class="stat-num">4.8★</div><div class="stat-label">App Store Rating</div></div>
-  </div>
-</div>
-
-<section>
+<section id="priority">
   <div class="section-label">Priority System</div>
   <h2 class="section-title">Always know what matters most.</h2>
-  <p class="section-sub">Color-coded priority levels with smart deadline tracking.</p>
+  <p class="section-sub">Color-coded priority levels so you always tackle the right task at the right time.</p>
   <div class="priority-grid">
     <div class="priority-card high">
       <div class="priority-level">🔴 High Priority</div>
@@ -252,7 +193,7 @@
     <h2>Start achieving more,<br>starting today.</h2>
     <p>Free to download. No account needed. Available on Android — iOS coming soon.</p>
     <div>
-      <a href="#" class="store-btn"><span style="font-size:1.6rem">📱</span><div class="store-txt"><small>Get it on</small><strong>Google Play</strong></div></a>
+      <a href="https://dailytaskbuddy.en.uptodown.com/android" class="store-btn"><span style="font-size:1.6rem">📱</span><div class="store-txt"><small>Get it on</small><strong>Uptodown</strong></div></a>
       <a href="#" class="store-btn"><span style="font-size:1.6rem">🍎</span><div class="store-txt"><small>Coming Soon to</small><strong>App Store</strong></div></a>
     </div>
   </div>
@@ -268,65 +209,6 @@
 </footer>
 
 <script>
-async function getSuggestions() {
-  const goal = document.getElementById('goalInput').value.trim();
-  const resultsDiv = document.getElementById('aiResults');
-  const btn = document.getElementById('aiBtn');
-  if (!goal) return;
-  btn.disabled = true;
-  btn.textContent = 'Thinking...';
-  resultsDiv.innerHTML = '<div class="ai-loading">🤖 AI is generating your tasks...</div>';
-  try {
-    const res = await fetch('/api/suggest', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ goal: goal })
-    });
-    const text = await res.text();
-    const data = JSON.parse(text);
-    if (data.tasks && data.tasks.length > 0) {
-      resultsDiv.innerHTML = data.tasks.map(t => `<div class="ai-task">${t}</div>`).join('');
-    } else if (data.error) {
-      resultsDiv.innerHTML = `<div class="ai-error">Error: ${data.error}</div>`;
-    } else {
-      resultsDiv.innerHTML = '<div class="ai-error">No tasks returned. Try again!</div>';
-    }
-  } catch(e) {
-    resultsDiv.innerHTML = `<div class="ai-error">Error: ${e.message}</div>`;
-  }
-  btn.disabled = false;
-  btn.textContent = '✨ Suggest';
-}
-
-document.getElementById('goalInput').addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') getSuggestions();
-});
-
-let mainInterval = null, mainSeconds = 1500, mainRunning = false, isBreak = false;
-function toggleMainTimer() {
-  const btn = document.getElementById('main-timer-btn');
-  if (mainRunning) {
-    clearInterval(mainInterval); mainRunning = false; btn.textContent = '▶ Continue';
-  } else {
-    mainRunning = true; btn.textContent = '⏸ Pause';
-    mainInterval = setInterval(() => {
-      if (mainSeconds <= 0) {
-        isBreak = !isBreak; mainSeconds = isBreak ? 300 : 1500;
-        document.getElementById('timer-phase').textContent = isBreak ? 'Short Break ☕' : 'Focus Session';
-      }
-      mainSeconds--;
-      const m = String(Math.floor(mainSeconds/60)).padStart(2,'0');
-      const s = String(mainSeconds%60).padStart(2,'0');
-      document.getElementById('main-timer').textContent = m+':'+s;
-    }, 1000);
-  }
-}
-function resetMainTimer() {
-  clearInterval(mainInterval); mainRunning = false; isBreak = false; mainSeconds = 1500;
-  document.getElementById('main-timer').textContent = '25:00';
-  document.getElementById('timer-phase').textContent = 'Focus Session';
-  document.getElementById('main-timer-btn').textContent = '▶ Start Focus';
-}
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js');
 }
@@ -338,4 +220,4 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 });
 </script>
 </body>
-  </html>
+</html>
