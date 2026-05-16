@@ -580,7 +580,7 @@
     document.getElementById('totalAdded').textContent     = stats.totalAdded;
     document.getElementById('highDone').textContent       = stats.highDone;
     document.getElementById('completionRate').textContent =
-      (stats.totalAdded > 0 ? Math.round((stats.totalDone / stats.totalAdded) * 100) : 0) + '%';
+      (stats.totalAdded > 0 ? Math.min(100, Math.round((stats.totalDone / stats.totalAdded) * 100)) : 0) + '%';
 
     var days = ['S','M','T','W','T','F','S'];
     var max  = Math.max.apply(null, stats.weekly.concat([1]));
@@ -590,12 +590,12 @@
 
     var badges = [
       { icon:'🌱', name:'First Task',    unlocked: stats.totalAdded >= 1 },
-      { icon:'🔥', name:'3 Day Streak',  unlocked: stats.streak >= 3 },
+      { icon:'🔥', name:'3 Days Streak',  unlocked: stats.streak >= 3 },
       { icon:'⚡', name:'10 Done',       unlocked: stats.totalDone >= 10 },
-      { icon:'🏆', name:'7 Day Streak',  unlocked: stats.streak >= 7 },
+      { icon:'🏆', name:'7 Days Streak',  unlocked: stats.streak >= 7 },
       { icon:'💪', name:'25 Done',       unlocked: stats.totalDone >= 25 },
       { icon:'🎯', name:'50 Done',       unlocked: stats.totalDone >= 50 },
-      { icon:'🌟', name:'30 Day Streak', unlocked: stats.streak >= 30 },
+      { icon:'🌟', name:'30 Days Streak', unlocked: stats.streak >= 30 },
       { icon:'👑', name:'100 Done',      unlocked: stats.totalDone >= 100 },
     ];
     document.getElementById('badgesGrid').innerHTML = badges.map(function(b){
